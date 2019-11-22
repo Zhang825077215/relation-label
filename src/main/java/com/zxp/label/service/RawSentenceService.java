@@ -9,20 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RawSentenceService {
-    public static final String MODIFYING = "LABELING";
-    public static final String MODIFIED1 = "USELESS";
-    public static final String MPDIFIED2 =  "LABELED";
+
 
     @Autowired
     private RawSentenceMapper rawSentenceMapper;
 
-    @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
-    public RawSentence getNextRawSen() {
+    public RawSentence getNextRawSen() throws Exception{
         RawSentence rawSentence = rawSentenceMapper.getNextSentence();
         if(rawSentence == null) {
             return null;
         }
-        rawSentenceMapper.updateRawSen(rawSentence.setFlag(MODIFYING));
+        updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING));
         return rawSentence;
+    }
+
+    @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
+    public void updateRawSentence(RawSentence sentence) throws Exception{
+        if (rawSentenceMapper.updateRawSen(sentence) == 0) {
+            throw new Exception("更新RawSentence失败！");
+        }
     }
 }

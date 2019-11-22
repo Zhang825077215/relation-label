@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface NovelMapper {
-    @Select("select * from novel where flag is null limit 1")
+    @Select("select * from novel where flag is null or flag = '' limit 1")
     Novel getNextNovel();
 }
