@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 public class RawSentenceService {
@@ -14,12 +15,17 @@ public class RawSentenceService {
     @Autowired
     private RawSentenceMapper rawSentenceMapper;
 
-    public RawSentence getNextRawSen() throws Exception{
-        RawSentence rawSentence = rawSentenceMapper.getNextSentence();
-        if(rawSentence == null) {
-            return null;
+    public RawSentence getNextRawSen(String userName) throws Exception{
+        RawSentence rawSentence = null;
+        if (!StringUtils.isEmpty(userName)) {
+            rawSentence = rawSentenceMapper.getNotLabeledSentence(userName, RawSentence.MODIFYING);
         }
-        updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING));
+        if(rawSentence == null) {
+            rawSentence = rawSentenceMapper.getNextSentence();
+            if (rawSentence != null) {
+                updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING).setUserName(userName));
+            }
+        }
         return rawSentence;
     }
 

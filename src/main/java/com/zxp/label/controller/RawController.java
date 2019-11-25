@@ -2,10 +2,11 @@ package com.zxp.label.controller;
 
 import com.zxp.label.Dto.Label;
 import com.zxp.label.Dto.NameInfo;
-import com.zxp.label.Dto.ResponseBody;
+import com.zxp.label.Dto.MyResponseBody;
 import com.zxp.label.Dto.Sentence;
 
 import com.zxp.label.service.SentenceService;
+import com.zxp.label.service.TypeService;
 import com.zxp.label.service.UsefulSentenceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,33 +24,33 @@ public class RawController {
     @Autowired
     private UsefulSentenceService usefulSentenceService;
 
+    @Autowired
+    private TypeService typeService;
+
     @ApiOperation(value="获取下一个标记句子",  httpMethod = "POST")
-    //@ApiImplicitParam(name = "nameInfo", value = "用户信息", required = true, dataType = "NameInfo")
     @RequestMapping(value = "/getSentence", method = RequestMethod.POST)
-    public ResponseBody getOne(@RequestBody NameInfo nameInfo) {
-        ResponseBody responseBody = new ResponseBody();
-        try{
-            Sentence sentence =  SentenceService.getNovelOrSentence(nameInfo);
-            responseBody.setData(sentence).setInfo("查询成功！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseBody.setInfo(e.getMessage()).setCode(ResponseBody.SYSTEMERROR);
-        }
-        return responseBody;
+    public MyResponseBody getOne(@RequestBody NameInfo nameInfo) throws Exception{
+        MyResponseBody myResponseBody = new MyResponseBody();
+
+        Sentence sentence =  SentenceService.getNovelOrSentence(nameInfo);
+        myResponseBody.setData(sentence).setInfo("查询成功！");
+        return myResponseBody;
     }
 
     @ApiOperation(value="提交标记",  httpMethod = "POST")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseBody addLabel(@RequestBody Label label) {
-        ResponseBody responseBody = new ResponseBody();
-        try{
-            int time =  usefulSentenceService.insertUsefulSen(label);
-            responseBody.setData(time).setInfo("提交成功！");
+    public MyResponseBody addLabel(@RequestBody Label label) throws Exception{
+        MyResponseBody myResponseBody = new MyResponseBody();
+        int times =  usefulSentenceService.insertUsefulSen(label);
+        myResponseBody.setData(times).setInfo("提交成功！");
+        return myResponseBody;
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseBody.setInfo(e.getMessage()).setCode(ResponseBody.SYSTEMERROR);
-        }
-        return responseBody;
+    @ApiOperation(value="获取标记类型",  httpMethod = "GET")
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public MyResponseBody getTypes(@RequestParam String param)  throws Exception{
+        MyResponseBody myResponseBody = new MyResponseBody();
+        myResponseBody.setData(typeService.getListTypes(param)).setInfo("查询成功！");
+        return myResponseBody;
     }
 }

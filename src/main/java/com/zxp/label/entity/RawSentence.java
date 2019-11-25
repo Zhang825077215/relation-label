@@ -12,6 +12,7 @@ public class RawSentence {
 
     private Integer id;
     private String sentence;
+    private String userName;
     private String flag;
     private Integer version;
 }

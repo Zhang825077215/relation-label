@@ -32,7 +32,7 @@ public class SentenceService {
             sentence.setType(Sentence.NOVEL).setNovel(novelService.getNovel());
         }
         if(sentence.getNovel() == null) {
-            sentence.setType(Sentence.RAW).setRawSentence(rawSentenceService.getNextRawSen());
+            sentence.setType(Sentence.RAW).setRawSentence(rawSentenceService.getNextRawSen(nameInfo.getUserName()));
         }
         sentence.setCount(labelOfCount.getCount(nameInfo.getUserName()));
         return sentence;
