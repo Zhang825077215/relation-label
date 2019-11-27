@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 
 
 @ControllerAdvice
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 //    }
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public MyResponseBody jsonErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    public MyResponseBody jsonErrorHandler(Exception e) throws Exception {
         MyResponseBody myResponseBody = new MyResponseBody();
         myResponseBody.setInfo(e.getMessage()).setCode(MyResponseBody.SYSTEMERROR);
         e.printStackTrace();

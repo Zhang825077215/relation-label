@@ -3,8 +3,9 @@ F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Dto\
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\service\SentenceService.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Dto\Sentence.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\mapper\RawSentenceMapper.java
+F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\entity\Type.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\service\RawSentenceService.java
-F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Dto\ResponseBody.java
+F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\mapper\TypeMapper.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\config\LabelOfCount.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\mapper\UsefulSentenceMapper.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Dto\NameInfo.java
@@ -13,8 +14,11 @@ F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\serv
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\service\UsefulSentenceService.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\entity\Novel.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\controller\HelloController.java
+F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\GlobalExceptionHandler.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\SwaggerConfig.java
+F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Dto\MyResponseBody.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\mapper\NovelMapper.java
+F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\service\TypeService.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\controller\RawController.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\Application.java
 F:\GraduateStudy2\KonwGraph\code\relation-label\src\main\java\com\zxp\label\config\ConfigProperties.java

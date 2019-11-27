@@ -9,7 +9,7 @@
 <!--                                                                -->
 <configuration scan="true">
     <property name="APP" value="xxxx"/>
-    <property name="LOG_HOME" value="D:/log/${APP}"/>
+    <property name="LOG_HOME" value="/home/ubuntu/label"/>
 
     <!--控制台-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
