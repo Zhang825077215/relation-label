@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @Api(value = "sentence", description = "任务一")
 @RequestMapping("raw")
@@ -39,9 +41,9 @@ public class RawController {
 
     @ApiOperation(value="提交标记",  httpMethod = "POST")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public MyResponseBody addLabel(@RequestBody Label label) throws Exception{
+    public MyResponseBody addLabel(HttpServletRequest request, @RequestBody Label label) throws Exception{
         MyResponseBody myResponseBody = new MyResponseBody();
-        int times =  usefulSentenceService.insertUsefulSen(label);
+        int times =  usefulSentenceService.insertUsefulSen(request, label);
         myResponseBody.setData(times).setInfo("提交成功！");
         return myResponseBody;
     }
