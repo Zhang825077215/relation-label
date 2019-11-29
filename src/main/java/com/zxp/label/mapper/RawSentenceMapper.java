@@ -18,4 +18,7 @@ public interface RawSentenceMapper {
     @Update("update raw_sentence set flag = #{flag}, version = version + 1, user_name = #{userName} " +
             "where id = #{id} and version = #{version}")
     int updateRawSen(RawSentence rawSentence);
+
+    @Insert("insert into raw_sentence(sentence, version) values(#{sentence}, #{version})")
+    int insertRaw(RawSentence rawSentence);
 }

@@ -35,4 +35,11 @@ public class RawSentenceService {
             throw new Exception("更新RawSentence失败！");
         }
     }
+
+    @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
+    public void insert(RawSentence rawSentence) throws Exception {
+        if (rawSentenceMapper.insertRaw(rawSentence) == 0) {
+            throw new Exception("插入RawSentence失败！");
+        }
+    }
 }
