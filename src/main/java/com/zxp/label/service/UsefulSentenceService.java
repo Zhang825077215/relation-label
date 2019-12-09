@@ -31,16 +31,18 @@ public class UsefulSentenceService {
         setFlag(label);
         if (flag.equals(RawSentence.MODIFIED1)) {
             return 0;
+        } else if (flag.equals(RawSentence.MPDIFIED2)) {
+            UsefulSentence usefulSentence = label.parseToUseSen();
+            usefulSentence.setUserIp(IpUtil.getIpAddr(request));
+            int tmp =  usefulSentenceMapper.insert(usefulSentence);
+            if (tmp > 0 ) {
+                labelOfCount.addCount(label.getUserName());
+                return tmp;
+            }
         }
-        UsefulSentence usefulSentence = label.parseToUseSen();
-        usefulSentence.setUserIp(IpUtil.getIpAddr(request));
-        int tmp =  usefulSentenceMapper.insert(usefulSentence);
-        if (tmp > 0 ) {
-            labelOfCount.addCount(label.getUserName());
-            return tmp;
-        } else {
-            throw new  Exception("插入失败");
-        }
+
+        throw new  Exception("插入失败");
+
     }
 
     @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)

@@ -25,6 +25,7 @@ public class RawSentenceService {
             if (rawSentence != null) {
                 updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING).setUserName(userName));
             }
+            rawSentence.setVersion(rawSentence.getVersion() + 1);
         }
         return rawSentence;
     }
