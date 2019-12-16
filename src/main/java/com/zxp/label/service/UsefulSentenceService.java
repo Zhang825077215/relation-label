@@ -29,7 +29,7 @@ public class UsefulSentenceService {
     public int insertUsefulSen(HttpServletRequest request, Label label) throws Exception{
         String flag = label.getRawSentence().getFlag();
         setFlag(label);
-        if (flag.equals(RawSentence.MODIFIED1)) {
+        if (flag.equals(RawSentence.MODIFIED1) || flag.equals(RawSentence.NOTKNOW)) {
             return 0;
         } else if (flag.equals(RawSentence.MPDIFIED2)) {
             UsefulSentence usefulSentence = label.parseToUseSen();
@@ -47,7 +47,7 @@ public class UsefulSentenceService {
 
     @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
     public void setFlag(Label label) throws Exception{
-        RawSentence rawSentence = label.getRawSentence().setFlag(label.getRawSentence().getFlag());
+        RawSentence rawSentence = label.getRawSentence();
         rawSentenceService.updateRawSentence(rawSentence);
     }
 }

@@ -9,6 +9,7 @@ public class RawSentence {
     public static final String MODIFYING = "LABELING";
     public static final String MODIFIED1 = "USELESS";
     public static final String MPDIFIED2 =  "LABELED";
+    public static final String NOTKNOW = "NOTKNOW";
 
     private Integer id;
     private String sentence;

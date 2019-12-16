@@ -21,7 +21,7 @@ public class RawSentenceService {
             rawSentence = rawSentenceMapper.getNotLabeledSentence(userName, RawSentence.MODIFYING);
         }
         if(rawSentence == null) {
-            rawSentence = rawSentenceMapper.getNextSentence();
+            rawSentence = rawSentenceMapper.getNextSentence(RawSentence.NOTKNOW);
             if (rawSentence != null) {
                 updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING).setUserName(userName));
             }
