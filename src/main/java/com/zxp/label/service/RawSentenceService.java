@@ -21,13 +21,17 @@ public class RawSentenceService {
             rawSentence = rawSentenceMapper.getNotLabeledSentence(userName, RawSentence.MODIFYING);
         }
         if(rawSentence == null) {
-            rawSentence = rawSentenceMapper.getNextSentence(RawSentence.NOTKNOW);
+            rawSentence = rawSentenceMapper.getNextSentence(null);
             if (rawSentence != null) {
                 updateRawSentence(rawSentence.setFlag(RawSentence.MODIFYING).setUserName(userName));
+                rawSentence.setVersion(rawSentence.getVersion() + 1);
             }
-            rawSentence.setVersion(rawSentence.getVersion() + 1);
         }
         return rawSentence;
+    }
+
+    public RawSentence getSentenceById(Integer id){
+        return rawSentenceMapper.getSentenceById(id);
     }
 
     @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)

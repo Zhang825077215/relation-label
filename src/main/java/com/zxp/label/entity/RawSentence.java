@@ -10,6 +10,7 @@ public class RawSentence {
     public static final String MODIFIED1 = "USELESS";
     public static final String MPDIFIED2 =  "LABELED";
     public static final String NOTKNOW = "NOTKNOW";
+    public static final String UNDIFINE = "UNDIFINE";
 
     private Integer id;
     private String sentence;

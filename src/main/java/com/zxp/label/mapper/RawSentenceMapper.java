@@ -6,8 +6,14 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface RawSentenceMapper {
-    @Select("select * from raw_sentence where flag is null or flag = '' or flag = #{flag} limit 1")
+    @Select("select * from raw_sentence where flag is null or flag = '' limit 1")
     RawSentence getNextSentence(@Param("flag")String flag);
+
+    @Select("select * from raw_sentence where id = #{id}")
+    @Results({
+            @Result(column = "user_name", property = "userName")
+    })
+    RawSentence getSentenceById(@Param("id")Integer id);
 
     @Select("select * from raw_sentence where flag = #{unLabeled} and user_name = #{userName}")
     @Results({

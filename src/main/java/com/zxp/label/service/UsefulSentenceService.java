@@ -28,20 +28,23 @@ public class UsefulSentenceService {
     @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
     public int insertUsefulSen(HttpServletRequest request, Label label) throws Exception{
         String flag = label.getRawSentence().getFlag();
-        setFlag(label);
-        if (flag.equals(RawSentence.MODIFIED1) || flag.equals(RawSentence.NOTKNOW)) {
-            return 0;
-        } else if (flag.equals(RawSentence.MPDIFIED2)) {
+        int tmp = 0;
+        if (flag.equals(RawSentence.NOTKNOW) || flag.equals(RawSentence.MODIFIED1)) {
+            ;
+        }
+        else if (flag.equals(RawSentence.MPDIFIED2)) {
             UsefulSentence usefulSentence = label.parseToUseSen();
             usefulSentence.setUserIp(IpUtil.getIpAddr(request));
-            int tmp =  usefulSentenceMapper.insert(usefulSentence);
-            if (tmp > 0 ) {
+            tmp =  usefulSentenceMapper.insert(usefulSentence);
+            if (tmp > 0) {
                 labelOfCount.addCount(label.getUserName());
-                return tmp;
+            } else {
+                throw new  Exception("插入失败");
             }
         }
+        setFlag(label);
+        return tmp;
 
-        throw new  Exception("插入失败");
 
     }
 
