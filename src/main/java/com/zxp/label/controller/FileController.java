@@ -2,7 +2,10 @@ package com.zxp.label.controller;
 
 import com.zxp.label.Dto.MyResponseBody;
 
+import com.zxp.label.Dto.UserCount;
+import com.zxp.label.service.RawSentenceService;
 import com.zxp.label.service.UploadService;
+import com.zxp.label.service.UsefulSentenceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,13 @@ public class FileController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    private RawSentenceService rawSentenceService;
+
+    @Autowired
+    private UsefulSentenceService usefulSentenceService;
+
 
     @ApiOperation(value="插入rawSentence",  httpMethod = "POST")
     @RequestMapping(value = "/addRaw", method = RequestMethod.POST)
@@ -35,4 +45,17 @@ public class FileController {
         myResponseBody.setData(count).setInfo("导入Novel成功！");
         return myResponseBody;
     }
+
+    @ApiOperation(value="获取标注进展",  httpMethod = "GET")
+    @RequestMapping(value = "/getCount", method = RequestMethod.GET)
+    public MyResponseBody getCount() throws Exception{
+        MyResponseBody myResponseBody = new MyResponseBody();
+        UserCount userCount = new UserCount();
+        userCount.setRaw(rawSentenceService.getCountRaw(null))
+                .setUseful(usefulSentenceService.getCountUseful(null));
+        myResponseBody.setData(userCount).setInfo("查询成功！");
+        return myResponseBody;
+    }
+
+
 }

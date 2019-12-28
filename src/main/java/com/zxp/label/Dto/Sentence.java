@@ -15,7 +15,7 @@ public class Sentence {
     private String type;
     private RawSentence rawSentence;
     private Novel novel;
-    private int count;
+    private UserCount userCount;
 
     public Sentence(){
     }

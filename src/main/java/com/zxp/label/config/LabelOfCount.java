@@ -1,28 +1,56 @@
 package com.zxp.label.config;
 
+import com.zxp.label.Dto.UserCount;
+import com.zxp.label.service.RawSentenceService;
+import com.zxp.label.service.UsefulSentenceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class LabelOfCount {
-    ConcurrentHashMap<String, Integer> counts;
+
+    @Autowired
+    private RawSentenceService rawSentenceService;
+
+    @Autowired
+    private UsefulSentenceService usefulSentenceService;
+
+    ConcurrentHashMap<String, UserCount> counts;
 
     public LabelOfCount() {
-        counts = new ConcurrentHashMap<String, Integer>();
+        counts = new ConcurrentHashMap<String, UserCount>();
     }
 
-    public int getCount(String userName) {
-        if (userName == null || userName.equals("")) {
-            return 0;
+    public UserCount getCount(String userName) {
+        if (StringUtils.isEmpty(userName)) {
+            return null;
         }
-        return counts.getOrDefault(userName, 0);
+        UserCount userCount = counts.get(userName);
+        if (userCount == null) {
+            userCount = new UserCount();
+            userCount.setRaw(rawSentenceService.getCountRaw(userName))
+                    .setUseful(usefulSentenceService.getCountUseful(userName));
+            counts.putIfAbsent(userName, userCount);
+        }
+        return userCount;
     }
 
-    public void addCount(String userName) {
-        if (userName == null || userName.equals("")) {
+    public void addCountRaw(String userName) {
+        UserCount userCount = getCount(userName);
+        if (userCount == null) {
             return;
         }
-        counts.putIfAbsent(userName, getCount(userName) + 1);
+        userCount.setRaw(userCount.getRaw() + 1);
+    }
+
+    public void addCountUseful(String userName) {
+        UserCount userCount = getCount(userName);
+        if (userCount == null) {
+            return;
+        }
+        userCount.setUseful(userCount.getUseful() + 1);
     }
 }

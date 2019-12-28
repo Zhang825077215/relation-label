@@ -2,6 +2,8 @@ package com.zxp.label.mapper;
 
 import com.zxp.label.entity.UsefulSentence;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 
 public interface UsefulSentenceMapper {
@@ -12,4 +14,9 @@ public interface UsefulSentenceMapper {
     int insert(UsefulSentence usefulSentence);
 
 
+    @Select("select count(*) from useful_sentence where user_name = #{userName}")
+    int getCountUseful(@Param("userName")String userName);
+
+    @Select("select count(*) from useful_sentence")
+    int getall();
 }

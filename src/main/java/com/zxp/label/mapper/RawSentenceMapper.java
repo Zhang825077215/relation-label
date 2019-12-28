@@ -21,6 +21,12 @@ public interface RawSentenceMapper {
     })
     RawSentence getNotLabeledSentence(@Param("userName")String userName, @Param("unLabeled") String unLabeled);
 
+    @Select("select count(*) from raw_sentence where user_name = #{userName}")
+    int getCountRaw(@Param("userName")String userName);
+
+    @Select("select count(*) from raw_sentence where flag is null or flag = ''")
+    int getall();
+
     @Update("update raw_sentence set flag = #{flag}, version = version + 1, user_name = #{userName} " +
             "where id = #{id} and version = #{version}")
     int updateRawSen(RawSentence rawSentence);

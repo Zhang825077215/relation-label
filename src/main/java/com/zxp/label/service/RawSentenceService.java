@@ -34,6 +34,13 @@ public class RawSentenceService {
         return rawSentenceMapper.getSentenceById(id);
     }
 
+    public int getCountRaw(String userName) {
+        if (StringUtils.isEmpty(userName)) {
+            return rawSentenceMapper.getall();
+        }
+        return rawSentenceMapper.getCountRaw(userName);
+    }
+
     @Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class)
     public void updateRawSentence(RawSentence sentence) throws Exception{
         if (rawSentenceMapper.updateRawSen(sentence) == 0) {
